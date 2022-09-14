@@ -4,9 +4,12 @@ import Link from 'next/link'
 import { BiSearchAlt2 } from 'react-icons/bi'
 import { FiShoppingCart } from 'react-icons/fi'
 import { FaUser } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
+import { selectBasketItems } from '../redux/basketslice'
 
 const Headers = () => {
   const porfile = false
+  const items = useSelector(selectBasketItems)
   return (
     <header className="sticky top-0 z-30 flex w-full items-center justify-between bg-[#eeee] p-3">
       <div className="flex items-center justify-center md:w-1/5">
@@ -31,9 +34,11 @@ const Headers = () => {
         <BiSearchAlt2 className="headerIcon" />
         <Link href="/checkout">
           <div className="relative">
-            <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-400 to-violet-500 text-sm text-white">
-              1
-            </span>
+            {items.length > 0 && (
+              <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white">
+                {items.length}
+              </span>
+            )}
             <FiShoppingCart className="headerIcon" />
           </div>
         </Link>
